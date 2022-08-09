@@ -1,0 +1,6 @@
+[generators]
+xmake
+[requires]
+xtensor/0.23.10
+[build_requires]
+xmake_generator/0.1.0@bincrafters/testing
