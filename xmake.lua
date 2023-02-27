@@ -7,6 +7,11 @@ add_requires("range-v3", {alias = "range-v3"})
 
 set_languages("c++20")
 
+if is_plat("linux") then
+    add_cxflags("-fconcepts", {force = true})
+elseif is_plat("windows") then
+    add_cxflags("/W4 /WX /wd4819 /wd4127", {force = true})
+end
 if is_mode("coverage") then
     add_cxflags("-ftest-coverage", "-fprofile-arcs", {force = true})
 end
@@ -16,11 +21,6 @@ target("CkPttn")
     add_includedirs("include", {public = true})
     add_files("src/*.cpp")
     add_packages("boost", "range-v3")
-    if is_plat("linux") then
-        add_cxflags("-fconcepts", {force = true})
-    elseif is_plat("windows") then
-        add_cxflags("/W4 /WX /wd4819 /wd4127", {force = true})
-    end
 
 target("test_ckpttn")
     set_kind("binary")
@@ -28,11 +28,7 @@ target("test_ckpttn")
     add_includedirs("include", {public = true})
     add_files("tests/*.cpp")
     add_packages("fmt", "doctest", "range-v3")
-    if is_plat("linux") then
-        add_cxflags("-fconcepts", {force = true})
-    elseif is_plat("windows") then
-        add_cxflags("/W4 /WX /wd4819 /wd4127", {force = true})
-    end
+
 --
 -- If you want to known more usage about xmake, please see https://xmake.io
 --
